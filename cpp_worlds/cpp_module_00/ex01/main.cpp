@@ -1,4 +1,5 @@
 #include "PhoneBook.hpp"
+#include <cstdlib>
 
 void	ftGetline(std::string str1, std::string &str2)
 {
@@ -14,7 +15,6 @@ void	ftGetline(std::string str1, std::string &str2)
 
 void inputContactInfo(std::string& firstName, std::string& lastName, std::string& nickname, std::string& phoneNumber, std::string& secret)
 {
-	system("clear");
 	ftGetline("First Name ", firstName);
 	ftGetline("Last Name ", lastName);
 	ftGetline("Nickname ", nickname);
@@ -71,12 +71,19 @@ int	validateContactInfo(std::string& firstName, std::string& lastName, std::stri
 
 void	printMenu(void)
 {
-	std::cout << "[The Light PhoneBook!]\n";
+	std::cout << "-----------------------------------\n";
 	std::cout << "Input One Of Following Commands\n";
 	std::cout << "-----------------------------------\n";
 	std::cout << "1. ADD\n";
 	std::cout << "2. SEARCH\n";
 	std::cout << "3. EXIT\n";
+}
+
+void	clearBuffer(void)
+{
+	std::cin.clear();
+	std::clearerr(stdin);
+	return ;
 }
 
 int	main(void)
@@ -89,6 +96,7 @@ int	main(void)
 	std::string phoneNumber;
 	std::string secret;
 
+	std::cout << "[The Light PhoneBook!]\n";
 	while (1)
 	{
 		system("clear");
@@ -100,23 +108,25 @@ int	main(void)
 			if (validateContactInfo(firstName, lastName, nickname, phoneNumber, secret))
 			{
 				std::cout << "Invalid Contact Information!\n";
-				std::cout << "(Press Enter)\n";
-				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-				std::cin.clear();
-				std::clearerr(stdin);
+				std::cin.get();
+				clearBuffer();
 				continue ;
 			}
 			book.addNewContact(firstName, lastName, nickname, phoneNumber, secret);
+			std::cout << "SUCCESS 😊\n";
+			std::cin.get();
 		}
 		if (!cmd.compare("SEARCH"))
 		{
 			book.displayContactInfo();
+			std::cin.get();
 		}
 		if (!cmd.compare("EXIT"))
 		{
 			std::cout << "Bye!\n";
 			return (0);
 		}
+		clearBuffer();
 	}
 	return (0);
 }

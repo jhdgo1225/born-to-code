@@ -34,10 +34,6 @@ void PhoneBook::displayContactInfo()
 	if (!count)
 	{
 		std::cout << "No Contents in PhoneBook!\n";
-		std::cout << "(Press Enter)\n";
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cin.clear();
-		std::clearerr(stdin);
 		return ;
 	}
 	std::cout << std::setw(10) << "index";
@@ -77,10 +73,6 @@ void PhoneBook::displayContactInfo()
 		|| contacts[index[0] - '1'].getFirstName().empty())
 	{
 		std::cout << "Invalid Index!\n";
-		std::cout << "(Press Enter)\n";
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cin.clear();
-		std::clearerr(stdin);
 		return ;
 	}
 	firstName = contacts[index[0] - '1'].getFirstName();
@@ -88,15 +80,11 @@ void PhoneBook::displayContactInfo()
 	nickname = contacts[index[0] - '1'].getNickname();
 	phoneNumber = contacts[index[0] - '1'].getPhoneNumber();
 	secret = contacts[index[0] - '1'].getSecret();
-	std::cout << "============= More Information about " << index[0] - '0' << "=============\n";
+	std::cout << "============= More Information about " << index[0] - '0' << " =============\n";
 	std::cout << "First Name : " << firstName << '\n';
 	std::cout << "Last Name : " << lastName << '\n';
 	std::cout << "Nickname : " << nickname << '\n';
 	std::cout << "Phone Number : " << phoneNumber << '\n';
 	std::cout << "Darkest Secret : " << secret << '\n';
-	std::cout << "(Press Enter)\n";
-	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-	std::cin.clear();
-	std::clearerr(stdin);
 	return ;
 }
