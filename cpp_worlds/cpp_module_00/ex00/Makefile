@@ -8,11 +8,11 @@ NAME	= megaphone
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CPP) $(CPPFLAGS) $< -o $@
+	@$(CPP) $(CPPFLAGS) $^ -o $@
 	@echo "Megaphone is made! 📣"
 
 %.o: %.cpp
-	@$(CPP) $(CPPFLAGS) -o $@ -c $<
+	@$(CPP) $(CPPFLAGS) -o $@ -c $^
 
 clean:
 	@rm -rf $(OBJS)
