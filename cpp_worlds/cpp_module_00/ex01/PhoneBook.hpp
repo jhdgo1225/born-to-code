@@ -8,12 +8,17 @@ class PhoneBook {
 public:
 	PhoneBook();
 	~PhoneBook();
-	void	addNewContact(std::string& firstName, std::string& lastName, std::string& phoneNumber
-							, std::string& nickname, std::string& secret);
-	void	displayContactInfo();
+	bool	addNewContact(void);
+	void	displayContactInfo(void);
 
 private:
 	Contact contacts[8];
 	int		count;
+	bool	validateContactInfo(std::string& firstName, std::string& lastName, std::string& nickname
+									, std::string& phoneNumber, std::string& secret);
+	bool	validateDuplicatedPhoneNumber(std::string phoneNumber);
 };
+
+void	ftGetline(std::string str1, std::string &str2);
+
 #endif
