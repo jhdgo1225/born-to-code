@@ -1,4 +1,5 @@
 #include "Account.hpp"
+#include <ctime>
 #include <iostream>
 
 int Account::_nbAccounts = 0;
@@ -50,7 +51,14 @@ int	Account::getNbWithdrawals(void)
 
 void    Account::_displayTimestamp(void)
 {
-    std::cout << "[19920104_091532] ";
+    time_t temp;
+    struct tm *timeinfo;
+    char buff[256];
+
+    time(&temp);
+    timeinfo = localtime(&temp);
+    strftime(buff, 256, "[%Y%m%d_%H%M%S]", timeinfo);
+	std::cout << buff << ' ';
 }
 
 void	Account::displayAccountsInfos(void)
