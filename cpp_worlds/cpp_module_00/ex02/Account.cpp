@@ -75,7 +75,7 @@ void    Account::makeDeposit(int deposit)
     _displayTimestamp();
     std::cout << "index:" << _accountIndex << ";";
     std::cout << "p_amount:" << checkAmount() << ";";
-    std::cout << "deposits:";
+    std::cout << "deposit:";
     if (deposit < 0)
     {
         std::cout << "refused\n";
