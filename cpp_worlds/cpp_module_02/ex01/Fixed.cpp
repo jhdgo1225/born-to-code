@@ -14,7 +14,7 @@ Fixed::Fixed(const int integer)
 }
 
 Fixed::Fixed(const float decimal)
-    :value((int)(decimal * 256))
+    :value((int)roundf(decimal * 256))
 {
     std::cout << "Float constructor called" << '\n';
 }

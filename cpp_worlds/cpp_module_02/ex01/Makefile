@@ -9,7 +9,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CPP) $(CPPFLAGS) $^ -o $@
-	@echo "better fixed-point"
+	@echo "Better Fixed 👦🏻"
 
 %.o: %.cpp
 	@$(CPP) $(CPPFLAGS) -o $@ -c $^

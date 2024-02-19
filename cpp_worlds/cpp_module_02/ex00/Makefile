@@ -9,7 +9,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CPP) $(CPPFLAGS) $^ -o $@
-	@echo "Orthododododododox"
+	@echo "Baby Fixed 👶🏼"
 
 %.o: %.cpp
 	@$(CPP) $(CPPFLAGS) -o $@ -c $^
