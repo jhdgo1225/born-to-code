@@ -13,7 +13,7 @@ public:
     void setRawBits(int const raw);
 private:
     int value;
-    static const int fration = 8;
+    static const int fractionalBits = 8;
 };
 
 #endif

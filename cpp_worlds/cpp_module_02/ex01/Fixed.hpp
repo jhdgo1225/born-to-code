@@ -17,7 +17,7 @@ public:
     int toInt(void) const;
 private:
     int value;
-    static const int fration = 8;
+    static const int fractionalBits = 8;
 };
 
 std::ostream& operator<<(std::ostream& outputStream, const Fixed& val);
