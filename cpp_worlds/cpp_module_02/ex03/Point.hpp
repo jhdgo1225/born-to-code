@@ -10,6 +10,8 @@ public:
     ~Point();
     Point(const Point& point);
     Point& operator=(const Point& point);
+    float getXValue() const;
+    float getYValue() const;
 private:
     const Fixed x;
     const Fixed y;

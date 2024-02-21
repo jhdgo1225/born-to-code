@@ -24,7 +24,20 @@ Point::Point(const Point& point)
 
 Point& Point::operator=(const Point& point)
 {
-    x = point.x;
-    y = point.y;
+    Fixed* nx = (Fixed *)&x;
+    Fixed* ny = (Fixed *)&y;
+
+    *nx = point.x;
+    *ny = point.y;
     return *this;
+}
+
+float Point::getXValue() const
+{
+    return (x.toFloat());
+}
+
+float Point::getYValue() const
+{
+    return (y.toFloat());
 }

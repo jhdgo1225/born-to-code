@@ -3,7 +3,7 @@
 int main(void)
 {
     Fixed a;
-    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+    Fixed b( Fixed( 5.05f ) * Fixed( 2 ) );
     std::cout << a << std::endl;
     std::cout << ++a << std::endl;
     std::cout << a << std::endl;
@@ -11,8 +11,13 @@ int main(void)
     std::cout << a << std::endl;
     std::cout << b << std::endl;
     std::cout << Fixed::max( a, b ) << std::endl;
-    return 0;
-
+    
+    // Fixed c(a);
+    // if (a * b = c)
+    //     std::cout << "good!\n";
+    // else
+    //     std::cout << "bad\n";
+    
     // Fixed a(10.01f);
     // Fixed b(10.0f);
     // Fixed c(a);
@@ -57,5 +62,5 @@ int main(void)
     // std::cout << "max() Function: " << std::max(ca, cb) << '\n';
     // std::cout << "min() Function: " << std::min(ca, cb) << '\n';
 
-    // return (0);
+    return 0;
 }
