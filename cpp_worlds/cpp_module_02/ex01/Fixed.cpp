@@ -4,36 +4,37 @@
 Fixed::Fixed()
     :value(0)
 {
-    std::cout << "Default constructor called" << '\n';
+    std::cout << "\033[1;32m" << "Default constructor called" << "\033[0m" << '\n';
 }
 
 Fixed::Fixed(const int integer)
     :value(integer << fractionalBits)
 {
-    std::cout << "Int constructor called" << '\n';
+    std::cout << "\033[1;32m" << "Int constructor called" << "\033[0m" << '\n';
 }
 
 Fixed::Fixed(const float decimal)
     :value((int)roundf(decimal * 256))
 {
-    std::cout << "Float constructor called" << '\n';
+    std::cout << "\033[1;32m" << "Float constructor called" << "\033[0m" << '\n';
 }
 
 Fixed::~Fixed()
 {
-    std::cout << "Destructor called" << '\n';
+    std::cout << value << '\n';
+    std::cout << "\033[1;31m" << "Destructor called" << "\033[0m" << '\n';
 }
 
 Fixed::Fixed(const Fixed& fixed)
     :value(fixed.value)
 {
-    std::cout << "Copy constructor called" << '\n';
+    std::cout << "\033[1;32m" << "Copy constructor called" << "\033[0m" << '\n';
 }
 
 Fixed& Fixed::operator=(const Fixed& fixed)
 {
     value = fixed.value;
-    std::cout << "Copy assignment operator called" << '\n';
+    std::cout << "\033[1;32m" << "Copy assignment operator called" << "\033[0m" << '\n';
     return *this;
 }
 
