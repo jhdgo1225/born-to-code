@@ -70,23 +70,23 @@ int main(void)
     }
     {
         std::cout << "\033[1;36m" << "[Case #3]: " << "\033[0m" << "First Triangle" << '\n';
-        Fixed x1(-2);
-        Fixed y1(6);
+        Fixed x1(2);
+        Fixed y1(0);
         Point p1(x1, y1);
         printPoint("p1", p1);
 
-        Fixed x2(3);
-        Fixed y2(8);
+        Fixed x2(1);
+        Fixed y2(1);
         Point p2(x2, y2);
         printPoint("p2", p2);
 
-        Fixed x3(1);
+        Fixed x3(3);
         Fixed y3(2);
         Point p3(x3, y3);
         printPoint("p3", p3);
 
-        Fixed x(0);
-        Fixed y(4);
+        Fixed x(2);
+        Fixed y(1);
         Point randomPoint(x, y);
         printPoint("randomPoint", randomPoint);
 

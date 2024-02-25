@@ -3,7 +3,7 @@ CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 SRCS	= main.cpp ClapTrap.cpp ScavTrap.cpp
 OBJS	= $(SRCS:%.cpp=%.o)
-NAME	= claptrap
+NAME	= scavtrap
 
 all: $(NAME)
 

@@ -2,19 +2,24 @@
 
 int main(void)
 {
-    ClapTrap a("sibal");
-    ClapTrap b("normdle");
+    ClapTrap a("Clap A");
+    ClapTrap b("Clap B");
+    std::cout << '\n';
 
     b.setAttackDamage(2147483647);
 
-    b.attack("sibal");
-    a.takeDamage(b.getAttackDamage());
-
-    b.attack("sibal");
-    a.takeDamage(b.getAttackDamage());
-
-    a.attack("normdle");
+    a.attack("Clap B");
     b.takeDamage(a.getAttackDamage());
 
+    // b.beRepaired(100);
+
+    for (int i=0; i<12; i++)
+    {
+        b.attack("Clap A");
+        a.takeDamage(b.getAttackDamage());
+    }
+
+    a.beRepaired(10);
+    b.beRepaired(1);
     return (0);
 }

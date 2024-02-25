@@ -6,10 +6,12 @@ ClapTrap::ClapTrap(std::string name)
      energyPoint(10),
      attackDamage(0)
 {
+    std::cout << "<< ClapTrap " << name << " is Created!! >>" << '\n';
 }
 
 ClapTrap::~ClapTrap()
 {
+    std::cout << "<< ClapTrap " << name << " is Destroyed!! >>" << '\n';
 }
 
 ClapTrap::ClapTrap(const ClapTrap& obj)
@@ -20,22 +22,25 @@ ClapTrap::ClapTrap(const ClapTrap& obj)
 ClapTrap& ClapTrap::operator=(const ClapTrap& obj)
 {
     name = obj.name;
+    hitPoint = obj.hitPoint;
+    energyPoint = obj.energyPoint;
+    attackDamage = obj.attackDamage;
     return *this;
 }
 
 void    ClapTrap::attack(const std::string target)
 {
     std::cout << "\033[1;35m" << "[ClapTrap " << name << "'s Attack Event]" << "\033[0m" << '\n';
+    if (hitPoint == 0)
+    {
+        std::cout << "ClapTrap " << name << " was dead..." << '\n';
+        std::cout << '\n';
+        return ;
+    }
     if (hitPoint > 0 && energyPoint > 0)
     {
         std::cout << "ClapTrap " << name << " attacks " << target << ", causing " << attackDamage << " points of damage!" << '\n';
         energyPoint -= 1;
-        std::cout << '\n';
-        return ;
-    }
-    if (hitPoint == 0)
-    {
-        std::cout << "ClapTrap " << name << " was dead..." << '\n';
         std::cout << '\n';
         return ;
     }
@@ -46,16 +51,17 @@ void    ClapTrap::attack(const std::string target)
 void    ClapTrap::takeDamage(unsigned int amount)
 {
     std::cout << "\033[1;31m" << "[ClapTrap " << name << "'s take Damage Event]" << "\033[0m" << '\n';
-    if (hitPoint <= 0)
+    if (hitPoint == 0)
     {
         std::cout << "ClapTrap " << name << " was already dead..." << '\n';
         std::cout << '\n';
         return ;
     }
-    if (hitPoint - (int)amount < 0)
+    int tmp = hitPoint - (int)amount;
+    if (tmp < 0 || tmp > hitPoint)
         hitPoint = 0;
     else
-        hitPoint -= amount;
+        hitPoint = tmp;
     std::cout << "ClapTrap " << name << " takes " << amount << " points damage." << '\n';
     std::cout << name << " has now " << hitPoint << " points." << '\n';
     std::cout << '\n';
@@ -64,20 +70,21 @@ void    ClapTrap::takeDamage(unsigned int amount)
 void    ClapTrap::beRepaired(unsigned int amount)
 {
     std::cout << "\033[1;32m" << "[ClapTrap " << name << "'s Be Repaired Event]" << "\033[0m" << '\n';
+    if (hitPoint == 0)
+    {
+        std::cout << "ClapTrap " << name << " was dead..." << '\n';
+        std::cout << '\n';
+        return ;
+    }
     if (hitPoint > 0 && energyPoint > 0)
     {
-        std::cout << "ClapTrap " << name << " be repaired " << amount << "points." << '\n';
-        if (hitPoint + (int)amount < 0)
+        if (hitPoint + (int)amount < hitPoint)
             hitPoint = 2147483647;
         else
             hitPoint += amount;
         energyPoint -= 1;
-        std::cout << '\n';
-        return ;
-    }
-    if (hitPoint == 0)
-    {
-        std::cout << "ClapTrap " << name << " was dead..." << '\n';
+        std::cout << "ClapTrap " << name << " be repaired " << amount << " points." << '\n';
+        std::cout << name << " has now " << hitPoint << " points." << '\n';
         std::cout << '\n';
         return ;
     }

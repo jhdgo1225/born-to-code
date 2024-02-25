@@ -1,7 +1,7 @@
-NAME	= claptrap
+NAME	= fragtrap
 
-SRCS	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp
-OBJS	= $(SRCS:srcs/%.cpp=srcs/%.o)
+SRCS	= srcs/main.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp
+OBJS	= $(SRCS:%.cpp=%.o)
 
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98
