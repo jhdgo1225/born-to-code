@@ -1,7 +1,7 @@
-NAME	= claptrap
+NAME	= diamondtrap
 
-SRCS	= main.cpp ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp
-OBJS	= $(SRCS:srcs/%.cpp=srcs/%.o)
+SRCS	= srcs/main.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp srcs/DiamondTrap.cpp
+OBJS	= $(SRCS:%.cpp=%.o)
 
 CPP			= c++
 CPPFLAGS	= -Wall -Wextra -Werror -std=c++98

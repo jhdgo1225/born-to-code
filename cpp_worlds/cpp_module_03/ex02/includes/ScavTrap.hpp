@@ -9,11 +9,11 @@ public:
     ~ScavTrap();
     ScavTrap(const ScavTrap& obj);
     ScavTrap& operator=(const ScavTrap& obj);
-    void    attack(const std::string target);
-    void    takeDamage(unsigned int amount);
-    void    beRepaired(unsigned int amount);
-    void    setAttackDamage(int damage);
-    void    guardGate();
+    virtual void    attack(const std::string target);
+    virtual void    takeDamage(unsigned int amount);
+    virtual void    beRepaired(unsigned int amount);
+    virtual void    setAttackDamage(int damage);
+    void            guardGate();
 };
 
 #endif

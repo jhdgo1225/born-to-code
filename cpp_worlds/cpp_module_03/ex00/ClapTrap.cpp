@@ -116,3 +116,8 @@ void    ClapTrap::setAttackDamage(int damage)
     std::cout << "ClapTrap " << name << " gets " << damage << " attack damage stat." << '\n';
     std::cout << '\n';
 }
+
+std::string&    ClapTrap::getName()
+{
+    return (name);
+}
