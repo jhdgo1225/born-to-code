@@ -20,6 +20,10 @@ int	main(void)
 	me->equip(tmp);
 
 	ICharacter *bob = new Character("bob");
+	ICharacter *copy = new Character(*(Character *)me);
+	copy->use(0, *bob);
+	ICharacter *copy2 = me;
+	copy2->use(2, *copy);
 
 	me->use(0, *bob);
 	me->use(1, *bob);

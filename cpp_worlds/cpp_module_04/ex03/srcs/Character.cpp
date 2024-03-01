@@ -38,7 +38,12 @@ Character::Character(const Character& rhs)
 	 name(rhs.name)
 {
 	for (int i=0; i<4; i++)
-		slots[i] = rhs.slots[i]->clone();
+	{
+		if (!rhs.slots[i])
+			slots[i] = NULL;
+		else
+			slots[i] = rhs.slots[i]->clone();
+	}
 	std::cout << "\033[1;32m" << "<< Character Class is Created >>" << "\033[0m" << '\n';
 }
 
@@ -46,7 +51,12 @@ Character& Character::operator=(const Character& rhs)
 {
 	name = rhs.name;
 	for (int i=0; i<4; i++)
-		slots[i] = rhs.slots[i]->clone();
+	{
+		if (!rhs.slots[i])
+			slots[i] = NULL;
+		else
+			slots[i] = rhs.slots[i]->clone();
+	}
 	return *this;
 }
 
@@ -82,6 +92,7 @@ void	Character::unequip(int idx)
 		std::cout << idx << " slot is empty..." << '\n';
 		return ;
 	}
+	std::cout << name << " unequiped " << slots[idx]->getType() << " in a " << idx << " slot." << '\n';
 	collector->push(slots[idx]);
 	slots[idx] = NULL;
 }
