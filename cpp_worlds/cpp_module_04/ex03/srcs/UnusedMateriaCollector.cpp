@@ -1,0 +1,51 @@
+#include "UnusedMateriaCollector.hpp"
+#include <cstdlib>
+
+UnusedMateriaCollector::UnusedMateriaCollector()
+	:front(NULL),
+	 back(NULL)
+{
+	std::cout << "\033[1;32m" << "<< UnusedMateriaCollector Class is Created >>" << "\033[0m" << '\n';
+}
+
+UnusedMateriaCollector::~UnusedMateriaCollector()
+{
+	std::cout << "\033[1;31m" << "<< UnusedMateriaCollector Class is Destroyed >>" << "\033[0m" << '\n';
+}
+
+void	UnusedMateriaCollector::push(AMateria* unequip)
+{
+	try
+	{
+		t_node	*tmp = new t_node;
+		tmp->value = unequip;
+		tmp->next = NULL;
+		if (!front)
+		{
+			front = tmp;
+			back = tmp;
+			return ;
+		}
+		back->next = tmp;
+		back = tmp;
+	}
+	catch (std::bad_alloc& exception)
+	{
+		std::cout << "exception : " << exception.what() << '\n';
+        std::abort();
+	}
+}
+
+void	UnusedMateriaCollector::deleteAll()
+{
+	t_node	*old;
+	back = NULL;
+	while (front)
+	{
+		old = front;
+		front = front->next;
+		old->next = NULL;
+		delete old->value;
+		delete old;
+	}
+}

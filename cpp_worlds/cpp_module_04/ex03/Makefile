@@ -1,6 +1,15 @@
-NAME	= diamondtrap
+NAME	= magic
 
-SRCS	= srcs/main.cpp srcs/ClapTrap.cpp srcs/ScavTrap.cpp srcs/FragTrap.cpp srcs/DiamondTrap.cpp
+SRCS	= srcs/ICharacter.cpp \
+		  srcs/Character.cpp \
+		  srcs/AMateria.cpp \
+		  srcs/Ice.cpp \
+		  srcs/Cure.cpp \
+		  srcs/UnusedMateriaCollector.cpp \
+		  srcs/IMateriaSource.cpp \
+		  srcs/MateriaSource.cpp \
+		  srcs/main.cpp
+
 OBJS	= $(SRCS:%.cpp=%.o)
 
 CPP			= c++
