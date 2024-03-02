@@ -23,16 +23,14 @@ int main(void)
 
     Cat *cat = new Cat();
     std::cout << '\n';
-
     cat->addIdeas("hihi");
     cat->addIdeas("hehehe");
     cat->showIdeas();
 
     Cat *copyCat = new Cat(*cat);
     std::cout << '\n';
-
     copyCat->showIdeas();
-    copyCat->addIdeas("Churue");
+    copyCat->addIdeas("Bob");
     copyCat->addIdeas("juseyo");
     cat->showIdeas();
     copyCat->showIdeas();
@@ -44,10 +42,9 @@ int main(void)
 
     Dog *dog = new Dog();
     std::cout << '\n';
-
-    dog->addIdeas("Dog");
+    dog->addIdeas("Gae");
     dog->addIdeas("Gum");
-    dog->addIdeas("Juseyong!!");
+    dog->addIdeas("Juseyo!");
     dog->showIdeas();
     Dog *copyDog = new Dog(*dog);
     copyDog->showIdeas();

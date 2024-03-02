@@ -6,7 +6,7 @@ class Cure : public AMateria
 {
 public:
 	Cure();
-	~Cure();
+	virtual ~Cure();
 	std::string const& getType() const;
 	virtual AMateria* clone() const;
 	virtual void use(ICharacter& target);
