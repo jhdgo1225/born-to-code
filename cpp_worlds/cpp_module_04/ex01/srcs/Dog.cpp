@@ -36,6 +36,7 @@ Dog::Dog(const Dog& rhs)
 Dog& Dog::operator=(const Dog& rhs)
 {
     type = rhs.type;
+    idx = rhs.idx;
     *brain = *rhs.brain;
     return *this;
 }
