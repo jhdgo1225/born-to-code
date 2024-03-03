@@ -10,7 +10,7 @@ public:
     Dog(const Dog& rhs);
     Dog& operator=(const Dog& rhs);
     virtual         ~Dog();
-    virtual void    makeSound();
+    virtual void    makeSound() const;
     void            addIdeas(const std::string idea);
     void            showIdeas();
 private:

@@ -41,7 +41,7 @@ Cat& Cat::operator=(const Cat& rhs)
     return *this;
 }
 
-void    Cat::makeSound()
+void    Cat::makeSound() const
 {
     std::cout << "Cat " << type  << " Meow~~ 🐱" << '\n';
 }

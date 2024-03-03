@@ -10,7 +10,7 @@ public:
     Cat(const Cat& rhs);
     Cat& operator=(const Cat& rhs);
     virtual         ~Cat();
-    virtual void    makeSound();
+    virtual void    makeSound() const;
     void            addIdeas(const std::string idea);
     void            showIdeas();
 private:
