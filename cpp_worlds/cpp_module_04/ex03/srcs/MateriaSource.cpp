@@ -4,7 +4,6 @@ MateriaSource::MateriaSource()
 {
 	for (int i=0; i<4; i++)
 		slots[i] = NULL;
-	std::cout << "\033[1;32m" << "<< MateriaSource Class is Created >>" << "\033[0m" << '\n';
 }
 
 MateriaSource::~MateriaSource()
@@ -17,7 +16,6 @@ MateriaSource::~MateriaSource()
 			slots[i] = NULL;
 		}
 	}
-	std::cout << "\033[1;31m" << "<< MateriaSource Class is Destroyed >>" << "\033[0m" << '\n';
 }
 
 void	MateriaSource::learnMateria(AMateria* m)

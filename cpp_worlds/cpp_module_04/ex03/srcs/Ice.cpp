@@ -4,12 +4,10 @@
 Ice::Ice()
 	:AMateria("ice")
 {
-	std::cout << "\033[1;32m" << "<< Ice Class is Created >>" << "\033[0m" << '\n';
 }
 
 Ice::~Ice()
 {
-    std::cout << "\033[1;31m" << "<< Ice Class is Destroyed >>" << "\033[0m" << '\n';
 }
 
 std::string const& Ice::getType() const

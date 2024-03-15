@@ -9,7 +9,6 @@ Character::Character(const std::string name)
 		collector = new UnusedMateriaCollector();
 		for (int i=0; i<4; i++)
 			slots[i] = NULL;
-		std::cout << "\033[1;32m" << "<< Character Class is Created >>" << "\033[0m" << '\n';
 	}
 	catch (std::bad_alloc& exception)
 	{
@@ -30,7 +29,6 @@ Character::~Character()
 			slots[i] = NULL;
 		}
 	}
-	std::cout << "\033[1;31m" << "<< Character Class is Destroyed >>" << "\033[0m" << '\n';
 }
 
 Character::Character(const Character& rhs)
@@ -44,7 +42,6 @@ Character::Character(const Character& rhs)
 		else
 			slots[i] = rhs.slots[i]->clone();
 	}
-	std::cout << "\033[1;32m" << "<< Character Class is Created >>" << "\033[0m" << '\n';
 }
 
 Character& Character::operator=(const Character& rhs)
@@ -52,11 +49,14 @@ Character& Character::operator=(const Character& rhs)
 	name = rhs.name;
 	for (int i=0; i<4; i++)
 	{
+		if (slots[i])
+			delete slots[i];
 		if (!rhs.slots[i])
 			slots[i] = NULL;
 		else
 			slots[i] = rhs.slots[i]->clone();
 	}
+	collector = rhs.collector;
 	return *this;
 }
 

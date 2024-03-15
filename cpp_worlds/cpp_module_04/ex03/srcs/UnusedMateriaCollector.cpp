@@ -5,12 +5,22 @@ UnusedMateriaCollector::UnusedMateriaCollector()
 	:front(NULL),
 	 back(NULL)
 {
-	std::cout << "\033[1;32m" << "<< UnusedMateriaCollector Class is Created >>" << "\033[0m" << '\n';
 }
 
 UnusedMateriaCollector::~UnusedMateriaCollector()
 {
-	std::cout << "\033[1;31m" << "<< UnusedMateriaCollector Class is Destroyed >>" << "\033[0m" << '\n';
+}
+
+UnusedMateriaCollector& UnusedMateriaCollector::operator=(const UnusedMateriaCollector& rhs)
+{
+	deleteAll();
+	t_node	*tmp = rhs.front;
+	while (tmp)
+	{
+		push(tmp->value->clone());
+		tmp = tmp->next;
+	}
+	return *this;
 }
 
 void	UnusedMateriaCollector::push(AMateria* unequip)

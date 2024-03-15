@@ -30,14 +30,14 @@ int main(int argc, char **argv)
 	if (argc != 4)
 		return (1);
 	std::string oldFile = argv[1];
-	std::ifstream readFile(oldFile);
+	std::ifstream readFile(oldFile.c_str());
 	if (!readFile.is_open())
 	{
 		std::cout << "Readfile Open Error\n";
 		return (1);
 	}
 	std::string new_file = oldFile.append(".replace");
-	std::ofstream writeFile(new_file);
+	std::ofstream writeFile(new_file.c_str());
 	if (!writeFile.is_open())
 	{
 		std::cout << "Writefile Open Error\n";

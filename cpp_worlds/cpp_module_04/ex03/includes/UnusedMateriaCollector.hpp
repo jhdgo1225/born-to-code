@@ -13,11 +13,11 @@ class UnusedMateriaCollector
 public:
 	UnusedMateriaCollector();
 	~UnusedMateriaCollector();
+	UnusedMateriaCollector& operator=(const UnusedMateriaCollector& rhs);
 	void	push(AMateria* unequip);
 	void	deleteAll();
 private:
 	UnusedMateriaCollector(const UnusedMateriaCollector& rhs);
-	UnusedMateriaCollector& operator=(const UnusedMateriaCollector& rhs);
 	t_node *front;
 	t_node *back;
 };

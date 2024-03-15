@@ -4,12 +4,10 @@
 Cure::Cure()
 	:AMateria("cure")
 {
-	std::cout << "\033[1;32m" << "<< Cure Class is Created >>" << "\033[0m" << '\n';
 }
 
 Cure::~Cure()
 {
-    std::cout << "\033[1;31m" << "<< Cure Class is Destroyed >>" << "\033[0m" << '\n';
 }
 
 std::string const& Cure::getType() const

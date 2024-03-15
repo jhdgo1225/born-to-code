@@ -37,6 +37,10 @@ int	main(void)
 	me->unequip(1);
 	me->use(2, *bob);
 
+	*(Character *)copy = *(Character *)me;
+	copy->use(0, *bob);
+	copy->use(2, *bob);
+
 	delete bob;
 	delete me;
 	delete src;
