@@ -42,6 +42,8 @@ Character::Character(const Character& rhs)
 		else
 			slots[i] = rhs.slots[i]->clone();
 	}
+	collector = new UnusedMateriaCollector();
+	*collector = *rhs.collector;
 }
 
 Character& Character::operator=(const Character& rhs)
