@@ -27,5 +27,15 @@ int main( void )
     std::cout << "c is " << c.toInt() << " as integer" << std::endl;
     std::cout << "d is " << d.toInt() << " as integer" << std::endl;
     std::cout << '\n';
+
+    std::cout << "\033[1;34m" << "The negative floating number test" << "\033[0m" << '\n';
+    Fixed neg(-1.5f);
+    Fixed neg(-1.5f);
+    Fixed neg2(-2);
+    std::cout << "negative -1.5f print int => " << neg.toInt() << '\n';
+    std::cout << "negative -1.5f print float => " << neg.toFloat() << '\n';
+    std::cout << "negative -2 => " << neg2.toInt() << '\n';
+    std::cout << "Literal -1.5f => " << (int)(-1.5f) << '\n';
+    
     return 0;
 }

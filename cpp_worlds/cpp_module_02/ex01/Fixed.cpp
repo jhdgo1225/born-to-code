@@ -14,7 +14,7 @@ Fixed::Fixed(const int integer)
 }
 
 Fixed::Fixed(const float decimal)
-    :value((int)roundf(decimal * 256))
+    :value((int)roundf(decimal * (1 << fractionalBits)))
 {
     std::cout << "\033[1;32m" << "Float constructor called" << "\033[0m" << '\n';
 }
@@ -52,12 +52,14 @@ void    Fixed::setRawBits(int const raw)
 
 int Fixed::toInt(void) const
 {
-    return (value >> fractionalBits);
+    int ret = value >> fractionalBits;
+    return (ret + (ret < 0 && (value & 0b11111111)));
 }
 
 float Fixed::toFloat(void) const
 {
-    return ((float)value / 256);
+    float   ret = (float)value / 256;
+    return (ret);
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Fixed& val)
