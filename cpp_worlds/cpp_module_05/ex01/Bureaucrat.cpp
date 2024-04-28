@@ -1,11 +1,11 @@
 #include "Bureaucrat.hpp"
 #include <sstream>
 
-Bureaucrat::GradeTooHighException::GradeTooHighException(int grade)
+Bureaucrat::GradeTooHighException::GradeTooHighException(const std::string name, int grade)
 {
     std::stringstream ss;
     ss << grade;
-    message.append("Grade ").append(ss.str()).append(" is too high.");
+    message.append("[Bureaucrat] \"").append(name).append("\"'s Grade ").append(ss.str()).append(" is too high.");
 }
 
 Bureaucrat::GradeTooHighException::~GradeTooHighException() throw()
@@ -17,11 +17,11 @@ const char *Bureaucrat::GradeTooHighException::what()
     return (message.c_str());
 }
 
-Bureaucrat::GradeTooLowException::GradeTooLowException(int grade)
+Bureaucrat::GradeTooLowException::GradeTooLowException(const std::string name, int grade)
 {
     std::stringstream ss;
     ss << grade;
-    message.append("Grade ").append(ss.str()).append(" is too low.");
+    message.append("[Bureaucrat] \"").append(name).append("\"'s Grade ").append(ss.str()).append(" is too low.");
 }
 
 Bureaucrat::GradeTooLowException::~GradeTooLowException() throw()
@@ -38,9 +38,9 @@ Bureaucrat::Bureaucrat(std::string name, int grade)
      grade(grade)
 {
     if (grade <= 0)
-        throw (GradeTooHighException(grade));
+        throw (GradeTooHighException(name, grade));
     else if (grade > 150)
-        throw (GradeTooLowException(grade));
+        throw (GradeTooLowException(name, grade));
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& rhs)
@@ -48,9 +48,9 @@ Bureaucrat::Bureaucrat(const Bureaucrat& rhs)
      grade(rhs.grade)
 {
     if (grade <= 0)
-        throw (GradeTooHighException(grade));
+        throw (GradeTooHighException(name, grade));
     else if (grade > 150)
-        throw (GradeTooLowException(grade));
+        throw (GradeTooLowException(name, grade));
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs)
@@ -59,9 +59,9 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs)
     *ptr = rhs.name;
     grade = rhs.grade;
     if (grade <= 0)
-        throw (GradeTooHighException(grade));
+        throw (GradeTooHighException(name, grade));
     else if (grade > 150)
-        throw (GradeTooLowException(grade));
+        throw (GradeTooLowException(name, grade));
     return (*this);
 }
 
@@ -83,7 +83,7 @@ void    Bureaucrat::increaseGrade(void)
 {
     int check = grade - 1;
     if (check <= 0)
-        throw (GradeTooHighException(check));
+        throw (GradeTooHighException(name, check));
     grade = check;
 }
 
@@ -91,7 +91,7 @@ void    Bureaucrat::decreaseGrade(void)
 {
     int check = grade + 1;
     if (check > 150)
-        throw (GradeTooLowException(check));
+        throw (GradeTooLowException(name, check));
     grade = check;
 }
 

@@ -14,7 +14,7 @@ int main(void)
         std::cout << p4 << '\n';
         
         Form f1("normal form", false, 50, 40);
-        Form f2("secret form", false, 1, 1);
+        Form f2("secret form", false, 0, 1);
         p1.signForm(f1);
         p2.signForm(f1);
         p3.signForm(f1);

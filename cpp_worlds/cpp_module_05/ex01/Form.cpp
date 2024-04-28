@@ -5,7 +5,7 @@ Form::GradeTooHighException::GradeTooHighException(std::string name, std::string
 {
     std::stringstream ss;
     ss << grade;
-    message.append(name).append("'s ").append(thing).append(" Grade ").append(ss.str()).append(" is too high.");
+    message.append("[Form] \"").append(name).append("\"'s ").append(thing).append(" Grade (").append(ss.str()).append(") is too high. [Available: 1-150]");
 }
 
 Form::GradeTooHighException::~GradeTooHighException() throw()
@@ -21,7 +21,7 @@ Form::GradeTooLowException::GradeTooLowException(std::string name, std::string t
 {
     std::stringstream ss;
     ss << grade;
-    message.append(name).append("'s ").append(thing).append(" Grade ").append(ss.str()).append(" is too low.");
+    message.append("[Form] \"").append(name).append("\"'s ").append(thing).append(" Grade (").append(ss.str()).append(") is too low. [Available: 1-150]");
 }
 
 Form::GradeTooLowException::~GradeTooLowException() throw()

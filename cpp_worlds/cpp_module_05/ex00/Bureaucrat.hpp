@@ -10,7 +10,7 @@ public:
         private:
             std::string message;
         public:
-            GradeTooHighException(int grade);
+            GradeTooHighException(const std::string name, int grade);
             virtual ~GradeTooHighException() throw();
             const char *what();
     };
@@ -18,7 +18,7 @@ public:
         private:
             std::string message;
         public:
-            GradeTooLowException(int grade);
+            GradeTooLowException(const std::string name, int grade);
             virtual ~GradeTooLowException() throw();
             const char *what();
     };

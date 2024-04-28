@@ -25,6 +25,14 @@ public:
             virtual ~GradeTooLowException() throw();
             const char *what();
     };
+    class   BureaucratGradeTooLowThanFormGradeException: public std::exception {
+        private:
+            std::string message;
+        public:
+            BureaucratGradeTooLowThanFormGradeException(std::string target, std::string thing, std::string frmName, int targetGrade, int formGrade);
+            virtual ~BureaucratGradeTooLowThanFormGradeException() throw();
+            const char *what();
+    };
     Form(std::string name, bool isSigned, int signGrade, int execGrade);
     Form(const Form& rhs);
     Form& operator=(const Form& rhs);
