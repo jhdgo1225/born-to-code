@@ -35,6 +35,10 @@ AForm* Intern::makeForm(const std::string form, const std::string target)
             default:
                 ret = NULL;
         }
+        if (ret)
+            std::cout << "Intern creates " << form << '\n';
+        else
+            std::cout << form << " is undefined form" << '\n';
         return (ret);
     } catch (std::bad_alloc &exception) {
         std::cout << "exception : " << exception.what() << '\n';
