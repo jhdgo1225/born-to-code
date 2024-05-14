@@ -98,11 +98,11 @@ void    Bureaucrat::decreaseGrade(void)
 void    Bureaucrat::signForm(Form& target)
 {
     std::string reason;
-    if (target.getIsSigned())
+    if (target.getSign())
         reason = "the form was already signed";
     else if (grade > target.getSignGrade())
         reason = "you have a low level to sign the form.";
-    if (target.getIsSigned() || grade > target.getSignGrade())
+    if (target.getSign() || grade > target.getSignGrade())
     {
         std::cout << "[Bureaucrat] - \"" << name << "\" couldn't sign [Form] - \"" << target.getFormName() << "\" ";
         std::cout << "because " << reason << '\n';

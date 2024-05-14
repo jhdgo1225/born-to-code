@@ -1,6 +1,20 @@
 #include "Intern.hpp"
 #include <cstdlib>
 
+Intern::UnknownFormError::UnknownFormError(std::string name)
+{
+    message.append("[Form] \"").append(name).append("\" is Unknown Form Category.");
+}
+
+Intern::UnknownFormError::~UnknownFormError() throw()
+{
+}
+
+const char *Intern::UnknownFormError::what()
+{
+    return (message.c_str());
+}
+
 Intern::Intern()
 {
 }
@@ -38,7 +52,10 @@ AForm* Intern::makeForm(const std::string form, const std::string target)
         if (ret)
             std::cout << "Intern creates " << form << '\n';
         else
+        {
             std::cout << form << " is undefined form" << '\n';
+            throw UnknownFormError(form);
+        }
         return (ret);
     } catch (std::bad_alloc &exception) {
         std::cout << "exception : " << exception.what() << '\n';

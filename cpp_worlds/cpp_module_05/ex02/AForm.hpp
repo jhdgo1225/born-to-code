@@ -41,19 +41,19 @@ public:
             virtual ~NotSignedException() throw();
             const char *what();
     };
-    AForm(std::string name, bool isSigned, int signGrade, int execGrade);
+    AForm(std::string name, bool sign, int signGrade, int execGrade);
     AForm(const AForm& rhs);
     AForm& operator=(const AForm& rhs);
     virtual ~AForm();
     std::string         getFormName() const;
-    bool                getIsSigned() const;
+    bool                getSign() const;
     int                 getSignGrade() const;
     int                 getExecGrade() const;
     void                beSigned(const Bureaucrat& target);
     virtual void        execute(Bureaucrat const& executor) const = 0;
 private:
     const std::string   formName;
-    bool                isSigned;
+    bool                sign;
     const int           signGrade;
     const int           execGrade;
 };

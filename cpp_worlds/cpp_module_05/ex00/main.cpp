@@ -7,9 +7,9 @@ int main(void)
         std::cout << p1 << '\n';
         Bureaucrat p2("jonghopark", 11);
         std::cout << p2 << '\n';
-        Bureaucrat p3("her", 1);
+        Bureaucrat p3("bot1", 1);
         std::cout << p3 << '\n';
-        Bureaucrat p4("him", 150);
+        Bureaucrat p4("bot22", 150);
         std::cout << p4 << '\n';
         // p3.increaseGrade();
         // p4.decreaseGrade();

@@ -33,18 +33,18 @@ public:
             virtual ~BureaucratGradeTooLowThanFormGradeException() throw();
             const char *what();
     };
-    Form(std::string name, bool isSigned, int signGrade, int execGrade);
+    Form(std::string name, bool sign, int signGrade, int execGrade);
     Form(const Form& rhs);
     Form& operator=(const Form& rhs);
     ~Form();
     std::string         getFormName() const;
-    bool                getIsSigned() const;
+    bool                getSign() const;
     int                 getSignGrade() const;
     int                 getExecGrade() const;
     void                beSigned(const Bureaucrat& target);
 private:
     const std::string   formName;
-    bool                isSigned;
+    bool                sign;
     const int           signGrade;
     const int           execGrade;
 };

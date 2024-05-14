@@ -8,6 +8,14 @@
 class   Intern
 {
 public:
+    class   UnknownFormError: public std::exception {
+        private:
+            std::string message;
+        public:
+            UnknownFormError(const std::string name);
+            virtual ~UnknownFormError() throw();
+            const char *what();
+    };
     Intern();
     ~Intern();
     AForm *makeForm(const std::string form, const std::string target);

@@ -98,11 +98,11 @@ void    Bureaucrat::decreaseGrade(void)
 void    Bureaucrat::signForm(AForm& form)
 {
     std::string reason;
-    if (form.getIsSigned())
+    if (form.getSign())
         reason = "the form was already signed";
     else if (grade > form.getSignGrade())
         reason = "you have a low level to sign the form.";
-    if (form.getIsSigned() || grade > form.getSignGrade())
+    if (form.getSign() || grade > form.getSignGrade())
     {
         std::cout << "[Bureaucrat] - \"" << name << "\" couldn't sign [Form] - \"" << form.getFormName() << "\" ";
         std::cout << "because " << reason << '\n';
@@ -117,11 +117,11 @@ void    Bureaucrat::signForm(AForm& form)
 void    Bureaucrat::executeForm(AForm const& form)
 {
     std::string reason;
-    if (!form.getIsSigned())
+    if (!form.getSign())
         reason = "The form was not signed";
     else if (grade > form.getExecGrade())
         reason = "You have a low level to execute the form.";
-    if (!form.getIsSigned() || grade > form.getExecGrade())
+    if (!form.getSign() || grade > form.getExecGrade())
     {
         std::cout << "[Bureaucrat] - \"" << name << "\" couldn't execute [Form] - \"" << form.getFormName() << "\" ";
         std::cout << "because " << reason << '\n';

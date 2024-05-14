@@ -67,9 +67,9 @@ const char *AForm::NotSignedException::what()
     return (message.c_str());
 }
 
-AForm::AForm(std::string name, bool isSigned, int signGrade, int execGrade)
+AForm::AForm(std::string name, bool sign, int signGrade, int execGrade)
     :formName(name),
-     isSigned(isSigned),
+     sign(sign),
      signGrade(signGrade),
      execGrade(execGrade)
 {
@@ -89,7 +89,7 @@ AForm::~AForm()
 
 AForm::AForm(const AForm& rhs)
     :formName(rhs.formName),
-     isSigned(rhs.isSigned),
+     sign(rhs.sign),
      signGrade(rhs.signGrade),
      execGrade(rhs.execGrade)
 {
@@ -127,9 +127,9 @@ std::string AForm::getFormName() const
     return (formName);
 }
 
-bool AForm::getIsSigned() const
+bool AForm::getSign() const
 {
-    return (isSigned);
+    return (sign);
 }
 
 int AForm::getSignGrade() const
@@ -145,13 +145,13 @@ int AForm::getExecGrade() const
 void    AForm::beSigned(const Bureaucrat& target)
 {
     if (signGrade >= target.getGrade())
-        isSigned = true;
+        sign = true;
     else
         throw (GradeTooLowException(formName, "signing", signGrade));
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const AForm& val)
 {
-    outputStream << "[AForm - \"" << val.getFormName() << "\", Status - " << val.getIsSigned() << "] " << "Sign Grade : " << val.getSignGrade() << ", Execute Grade : " << val.getExecGrade();
+    outputStream << "[AForm - \"" << val.getFormName() << "\", Status - " << val.getSign() << "] " << "Sign Grade : " << val.getSignGrade() << ", Execute Grade : " << val.getExecGrade();
     return (outputStream);
 }

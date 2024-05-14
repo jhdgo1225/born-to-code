@@ -23,7 +23,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 {
-    if (getIsSigned() && getExecGrade() >= executor.getGrade())
+    if (getSign() && getExecGrade() >= executor.getGrade())
     {
         std::string newFile = executor.getName().append("_shrubbery");
         std::ofstream writeFile(newFile.c_str());
@@ -47,7 +47,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
         writeFile.close();
         std::cout << executor.getName() << " plants a shrubbery tree" << '\n';
     }
-    else if (!getIsSigned())
+    else if (!getSign())
         throw NotSignedException(executor.getName(), getFormName());
     else
         throw BureaucratGradeTooLowThanFormGradeException(executor.getName(), "execute", getFormName(), executor.getGrade(), getExecGrade());

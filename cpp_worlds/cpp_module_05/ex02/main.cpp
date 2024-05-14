@@ -16,7 +16,9 @@ int main(void)
         delete f1;
         delete f2;
         delete f3;
-    }  catch (Bureaucrat::GradeTooHighException& e) {
+    } catch (std::bad_alloc& e) {
+        std::cout << e.what() << '\n';
+    } catch (Bureaucrat::GradeTooHighException& e) {
         std::cout << e.what() << '\n';
     } catch (Bureaucrat::GradeTooLowException& e) {
         std::cout << e.what() << '\n';

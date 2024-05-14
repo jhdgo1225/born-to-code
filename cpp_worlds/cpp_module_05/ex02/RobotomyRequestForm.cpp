@@ -24,7 +24,7 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void RobotomyRequestForm::execute(Bureaucrat const& executor) const
 {
-    if (getIsSigned() && getExecGrade() >= executor.getGrade())
+    if (getSign() && getExecGrade() >= executor.getGrade())
     {
         srand(static_cast<unsigned>(time(NULL)));
         int randNum = rand() % 100;
@@ -33,7 +33,7 @@ void RobotomyRequestForm::execute(Bureaucrat const& executor) const
         else
             std::cout << executor.getName() << " was failed to Robotomize..." << '\n';
     }
-    else if (!getIsSigned())
+    else if (!getSign())
         throw NotSignedException(executor.getName(), getFormName());
     else
         throw BureaucratGradeTooLowThanFormGradeException(executor.getName(), "execute", getFormName(), executor.getGrade(), getExecGrade());
