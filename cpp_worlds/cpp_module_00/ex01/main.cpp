@@ -53,7 +53,7 @@ int	main(void)
 		else if (!cmd.compare("EXIT"))
 		{
 			std::cout << "Bye!\n";
-			return (0);
+			break ;
 		}
 		else
 		{

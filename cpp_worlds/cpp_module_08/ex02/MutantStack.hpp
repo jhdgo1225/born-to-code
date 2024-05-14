@@ -1,57 +1,82 @@
 #ifndef MUTANT_STACK_HPP
 # define MUTANT_STACK_HPP
-# include <cstdlib>
+# include <iostream>
 # include <stack>
+# include <deque>
 
-template<typename T>
-class MutantStack
-{
+// MutantStack 클래스 정의
+template<typename T, class Container = std::deque<T> >
+class MutantStack : public std::stack<T, Container> {
 public:
-    MutantStack()
-        :_size(0)
-    {
-    }
-    ~MutantStack()
-    {
-    }
-    MutantStack(const MutantStack<T>& rhs)
-        :_size(rhs._size)
-    {
-        ogStack = rhs.ogStack;
-    }
-    MutantStack& operator=(const MutantStack<T>& rhs)
-    {
-        ogStack = rhs.ogStack;
-        _size = rhs._size;
-        return (*this);
-    }
-    void    push(T data)
-    {
-        ogStack.push(data);
-    }
-    void    pop()
-    {
-        ogStack.pop();
-    }
-    size_t    size()
-    {
-        return (ogStack.size());
-    }
-    bool    empty()
-    {
-        return (ogStack.empty());
-    }
-    T&      top()
-    {
-        return (ogStack.top());
-    }
-    void    swap(const MutantStack& rhs)
-    {
-        ogStack.swap(rhs.ogStack);
-    }
-private:
-    size_t          _size;
-    std::stack<T>   ogStack;
+	class iterator
+	{
+	public:
+		iterator()
+			:_idx(-1)
+		{
+		}
+		iterator(typename Container::iterator iter, int idx)
+			:_iter(iter),
+			 _idx(idx)
+		{
+		}
+		~iterator()
+		{
+		}
+        T& operator*()
+		{
+			return *_iter;
+		}
+		typename Container::iterator operator++(void)
+		{
+			return (_iter++);
+		}
+		typename Container::iterator operator--(void)
+		{
+			return (_iter--);
+		}
+		typename Container::iterator operator++(int _val)
+		{
+			(void)_val;
+			typename Container::iterator tmp = _iter;
+			_iter++;
+			return (tmp);
+		}
+		typename Container::iterator operator--(int _val)
+		{
+			(void)_val;
+			typename Container::iterator tmp = _iter;
+			_iter--;
+			return (tmp);
+		}
+        bool operator==(const iterator& a) const
+        {
+            return (_iter != a._iter);
+        }
+        bool operator!=(const iterator& a) const
+        {
+            return (_iter != a._iter);
+        }
+	private:
+		typename Container::iterator	_iter;
+		int								_idx;
+	};
+	MutantStack()
+	{
+	}
+	~MutantStack()
+	{
+	}
+    iterator begin()
+	{
+		Container* startAddr = &(this->c);
+		return iterator(startAddr->begin(), 0);
+	}
+	iterator end()
+	{
+		Container* endAddr = &(this->c);
+		return iterator(endAddr->end(), endAddr->size());
+	}
 };
 
 #endif

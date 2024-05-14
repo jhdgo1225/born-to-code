@@ -65,7 +65,7 @@ void	ScalarConverter::cvtToChar(const double& info)
 		return ;
 	}
 	if (checkChar >= 32 && checkChar <= 126)
-		std::cout << static_cast<char>(checkChar) << '\n';
+		std::cout << '\'' << static_cast<char>(checkChar) << '\'' << '\n';
 	else if ((checkChar >= 0 && checkChar < 32) || checkChar == 127)
 		std::cout << "Non displayable" << '\n';
 	else
@@ -93,7 +93,7 @@ void	ScalarConverter::cvtToFloat(const double& info, const size_t& sz, const boo
 	float	checkFloat = static_cast<float>(info);
 	std::cout << "float: ";
 	std::cout << checkFloat;
-	if (sz == 1 || (checkFloat == checkFloat && checkFloat != std::numeric_limits<float>::infinity() && !fracPart))
+	if (sz == 1 || (checkFloat == checkFloat && checkFloat != std::numeric_limits<float>::infinity() && checkFloat != std::numeric_limits<float>::infinity() * (-1) && !fracPart))
 		std::cout << ".0";
 	std::cout << "f" << '\n';
 }
@@ -102,7 +102,7 @@ void	ScalarConverter::cvtToDouble(const double& info, const size_t& sz, const bo
 {
 	std::cout << "double: ";
 	std::cout << info;
-	if (sz == 1 || (info == info && info != std::numeric_limits<double>::infinity() && !fracPart))
+	if (sz == 1 || (info == info && info != std::numeric_limits<double>::infinity() && info != std::numeric_limits<float>::infinity() * (-1) && !fracPart))
 		std::cout << ".0";
 	std::cout << '\n';
 }

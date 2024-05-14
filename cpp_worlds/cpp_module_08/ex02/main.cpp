@@ -17,12 +17,15 @@ int main()
     std::cout << mstack.size() << std::endl;
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
-    ++it;
-    --it;
+    std::cout << *(it++) << '\n';
+    std::cout << *(it--) << '\n';
+    std::cout << "=================================\n";
+    std::cout << "Check Iterating with While Statement\n";
     while (it != ite) {
         std::cout << *it << std::endl;
         ++it;
     }
-    // std::stack<int> s(mstack);
+    std::stack<int> s(mstack);
+    std::cout << s.top() << '\n';
     return 0;
 }
