@@ -1,23 +1,26 @@
 #include "easyfind.hpp"
 #include <iostream>
 #include <list>
-#include <queue>
 
 int main(void)
 {
 	std::list<int> hello;
 
-	hello.push_back(12);
-	hello.push_back(24);
-	hello.push_back(36);
-	std::cout << (::easyfind(hello, 12) ? "Find!" : "Not Found") << '\n';
+	try {
+		std::cout << "'[list] Container' Test" << '\n';
+		std::cout << "-----------------------------------" << '\n';
+		hello.push_back(12);
+		hello.push_back(24);
+		hello.push_back(36);
+		std::list<int>::iterator iter1 = ::easyfind(hello, 36);
+		std::cout << *iter1 << '\n';
+		std::cout << '\n';
 
-	// std::queue<int> st;
-	// st.push(10);
-	// st.push(20);
-	// st.push(30);
-	// st.push(40);
-	// st.push(50);
-	// std::cout << ::easyfind(st, 30) << '\n';
+		std::cout << "Looping Statement Test" << '\n';
+		while (iter1 != hello.end())
+			std::cout << *iter1++ << '\n';
+	} catch (std::exception& e) {
+		std::cout << e.what() << '\n';
+	}
 	return (0);
 }
