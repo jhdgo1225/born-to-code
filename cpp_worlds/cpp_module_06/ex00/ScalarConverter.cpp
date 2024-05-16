@@ -1,24 +1,26 @@
 #include "ScalarConverter.hpp"
+#include <sstream>
 #include <limits>
 
-bool	ScalarConverter::checkInfAndNan(std::string& val, const size_t& sz)
+bool	checkInfAndNan(const std::string& val, const size_t& sz)
 {
 	if (sz < 3 || sz > 5)
 		return (false);
 	size_t idx = 0;
+	std::string tmp = val;
 	while (idx < sz)
 	{
-		val[idx] = tolower(val[idx]);
+		tmp[idx] = tolower(tmp[idx]);
 		idx++;
 	}
-	if (!val.compare("inf") || !val.compare("+inf") || !val.compare("-inf")
-		|| !val.compare("inff") || !val.compare("+inff") || !val.compare("-inff")
-		|| !val.compare("nan") || !val.compare("nanf"))
+	if (!tmp.compare("inf") || !tmp.compare("+inf") || !tmp.compare("-inf")
+		|| !tmp.compare("inff") || !tmp.compare("+inff") || !tmp.compare("-inff")
+		|| !tmp.compare("nan") || !tmp.compare("nanf"))
 		return (true);
 	return (false);
 }
 
-bool	ScalarConverter::checkNumber(const std::string& val, const size_t& sz, bool& fracPart)
+bool	checkNumber(const std::string& val, const size_t& sz, bool *point)
 {
 	size_t	idx = 0;
 	bool	isNum = false;
@@ -44,65 +46,97 @@ bool	ScalarConverter::checkNumber(const std::string& val, const size_t& sz, bool
 				return (false);
 		}
 		if (val[idx] >= '0' && val[idx] <= '9')
-		{
-			if (isDecimalPoint && (val[idx] >= '1' && val[idx] <= '9'))
-				fracPart = true;
 			isNum = true;
-		}
 		idx++;
 	}
+	if (point)
+		*point = isDecimalPoint;
 	return (true);
 }
 
-void	ScalarConverter::cvtToChar(const double& info)
+char	cvtToChar(const std::string& rawData, size_t& strSize)
 {
-	int	checkChar = static_cast<int>(info);
-	std::cout << "char: ";
-	if (info == std::numeric_limits<double>::infinity()
-		|| info != info)
+	char charInfo = -1;
+	if (strSize == 1 && ((rawData[0] >= 32 && rawData[0] < '0') || (rawData[0] > '9' && rawData[0] <= 126)))
+		charInfo = static_cast<char>(rawData[0]);
+	else if (strSize == 3
+		&& (((rawData[0] == '\'' && rawData[2] == '\'') || (rawData[0] == '"' || rawData[2] == '"'))
+			&& (rawData[1] >= 32 && rawData[1] <= 126)))
+		charInfo = static_cast<char>(rawData[1]);
+	else if (checkNumber(rawData, strSize, NULL))
 	{
-		std::cout << "impossible" << '\n';
-		return ;
+		double num = atof(rawData.c_str());
+		if (num >= 0 && num <= 127)
+			charInfo = static_cast<char>(num);
 	}
-	if (checkChar >= 32 && checkChar <= 126)
-		std::cout << '\'' << static_cast<char>(checkChar) << '\'' << '\n';
-	else if ((checkChar >= 0 && checkChar < 32) || checkChar == 127)
+	std::cout << "char: ";
+	if (charInfo >= 32 && charInfo <= 126)
+		std::cout << '\'' << static_cast<char>(charInfo) << '\'' << '\n';
+	else if ((charInfo >= 0 && charInfo < 32) || charInfo == 127)
 		std::cout << "Non displayable" << '\n';
 	else
 		std::cout << "impossible" << '\n';
+	return (charInfo);
 }
 
-void	ScalarConverter::cvtToInt(const double& info)
+void	cvtToInt(const std::string& rawData, size_t& strSize, char isRealChar)
 {
-	long long	checkInt = static_cast<long long>(info);
 	std::cout << "int: ";
-	if (info == std::numeric_limits<double>::infinity()
-		|| info != info)
+	if (isRealChar != -1)
+		std::cout << static_cast<int>(isRealChar) << '\n';
+	else if (checkInfAndNan(rawData, strSize) || checkNumber(rawData, strSize, NULL))
 	{
-		std::cout << "impossible" << '\n';
-		return ;
+		double num = atof(rawData.c_str());
+		if (num >= std::numeric_limits<int>::min()
+			&& num <= std::numeric_limits<int>::max())
+			std::cout << static_cast<int>(num) << '\n';
+		else
+			std::cout << "impossible" << '\n';
 	}
-	if (checkInt >= std::numeric_limits<int>::min() && checkInt <= std::numeric_limits<int>::max())
-		std::cout << checkInt << '\n';
 	else
 		std::cout << "impossible" << '\n';
 }
 
-void	ScalarConverter::cvtToFloat(const double& info, const size_t& sz, const bool& fracPart)
+void	cvtToFloat(const std::string& rawData, size_t& strSize, char isRealChar)
 {
-	float	checkFloat = static_cast<float>(info);
+	float checkFloat = 0.0f;
+	bool 	fracPart = false;
 	std::cout << "float: ";
+	if (checkInfAndNan(rawData, strSize))
+		checkFloat = static_cast<float>(atof(rawData.c_str()));
+	else if (checkNumber(rawData, strSize, &fracPart))
+		checkFloat = static_cast<float>(atof(rawData.c_str()));
+	else if (isRealChar != -1)
+		checkFloat = static_cast<double>(isRealChar);
+	else
+	{
+		std::cout << "impossible" << '\n';
+		return ;
+	}
 	std::cout << checkFloat;
-	if (sz == 1 || (checkFloat == checkFloat && checkFloat != std::numeric_limits<float>::infinity() && checkFloat != std::numeric_limits<float>::infinity() * (-1) && !fracPart))
+	if (checkFloat == checkFloat && checkFloat != std::numeric_limits<float>::infinity() && checkFloat != std::numeric_limits<float>::infinity() * (-1) && !fracPart)
 		std::cout << ".0";
 	std::cout << "f" << '\n';
 }
 
-void	ScalarConverter::cvtToDouble(const double& info, const size_t& sz, const bool& fracPart)
+void	cvtToDouble(const std::string& rawData, size_t& strSize, char isRealChar)
 {
+	double	checkDouble = 0;
+	bool 	fracPart = false;
 	std::cout << "double: ";
-	std::cout << info;
-	if (sz == 1 || (info == info && info != std::numeric_limits<double>::infinity() && info != std::numeric_limits<float>::infinity() * (-1) && !fracPart))
+	if (checkInfAndNan(rawData, strSize))
+		checkDouble = static_cast<double>(atof(rawData.c_str()));
+	else if (checkNumber(rawData, strSize, &fracPart))
+		checkDouble = static_cast<double>(atof(rawData.c_str()));
+	else if (isRealChar != -1)
+		checkDouble = static_cast<double>(isRealChar);
+	else
+	{
+		std::cout << "impossible" << '\n';
+		return ;
+	}
+	std::cout << checkDouble;
+	if (checkDouble == checkDouble && checkDouble != std::numeric_limits<double>::infinity() && checkDouble != std::numeric_limits<double>::infinity() * (-1) && !fracPart)
 		std::cout << ".0";
 	std::cout << '\n';
 }
@@ -110,24 +144,8 @@ void	ScalarConverter::cvtToDouble(const double& info, const size_t& sz, const bo
 void	ScalarConverter::convert(std::string rawData)
 {
 	size_t	strSize = rawData.size();
-	bool fractionalPart = false;
-	double	numInfo;
-	if (strSize == 1 && ((rawData[0] >= 32 && rawData[0] < '0') || (rawData[0] > '9' && rawData[0] <= 126)))
-		numInfo = static_cast<double>(rawData[0]);
-	else if (strSize == 3 && (rawData[0] == '\'' && rawData[2] == '\'' && (rawData[1] >= 32 && rawData[1] <= 126)))
-		numInfo = static_cast<double>(rawData[1]);
-	else if (checkInfAndNan(rawData, strSize) || checkNumber(rawData, strSize, fractionalPart))
-		numInfo = atof(rawData.c_str());
-	else
-	{
-		std::cout << "char: impossible" << '\n';
-		std::cout << "int: impossible" << '\n';
-		std::cout << "float: impossible" << '\n';
-		std::cout << "double: impossible" << '\n';
-		return ;
-	}
-	cvtToChar(numInfo);
-	cvtToInt(numInfo);
-	cvtToFloat(numInfo, strSize, fractionalPart);
-	cvtToDouble(numInfo, strSize, fractionalPart);
+	char	isRealChar = cvtToChar(rawData, strSize);
+	cvtToInt(rawData, strSize, isRealChar);
+	cvtToFloat(rawData, strSize, isRealChar);
+	cvtToDouble(rawData, strSize, isRealChar);
 }
