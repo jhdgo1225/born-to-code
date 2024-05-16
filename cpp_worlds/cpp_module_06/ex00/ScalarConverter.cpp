@@ -45,12 +45,14 @@ bool	checkNumber(const std::string& val, const size_t& sz, bool *point)
 			else
 				return (false);
 		}
-		if (val[idx] >= '0' && val[idx] <= '9')
+		else
+		{
+			if (isDecimalPoint && (val[idx] >= '1' && val[idx] <= '9') && point)
+				*point = true;
 			isNum = true;
+		}
 		idx++;
 	}
-	if (point)
-		*point = isDecimalPoint;
 	return (true);
 }
 
