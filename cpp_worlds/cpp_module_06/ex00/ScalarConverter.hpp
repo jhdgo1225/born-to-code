@@ -14,11 +14,5 @@ private:
 	ScalarConverter(const ScalarConverter& rhs);
 	ScalarConverter& operator=(const ScalarConverter& rhs);
 };
-bool	checkInfAndNan(std::string& val, const size_t& sz);
-bool	checkNumber(const std::string& val, const size_t& sz, bool *point);
-char	cvtToChar(const std::string& rawData, size_t& strSize);
-void	cvtToInt(const std::string& rawData, size_t& strSize, char isRealChar);
-void	cvtToFloat(const std::string& rawData, size_t& strSize, char isRealChar);
-void	cvtToDouble(const std::string& rawData, size_t& strSize, char isRealChar);
 
 #endif

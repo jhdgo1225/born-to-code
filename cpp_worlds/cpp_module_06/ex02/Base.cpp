@@ -11,7 +11,7 @@ Base::~Base()
 
 Base    *generate(void)
 {
-    Base    *ret;
+    Base    *ret = NULL;
     try {
         srand(time(NULL));
         int randNum = rand() % 99;
@@ -21,6 +21,7 @@ Base    *generate(void)
             ret = new B();
         else if (randNum >= 66 && randNum < 99)
             ret = new C();
+        return (ret);
     } catch (std::bad_alloc& exception) {
         std::cout << "exception : " << exception.what() << '\n';
         std::abort();

@@ -109,7 +109,7 @@ void	cvtToFloat(const std::string& rawData, size_t& strSize, char isRealChar)
 	else if (checkNumber(rawData, strSize, &fracPart))
 		checkFloat = static_cast<float>(atof(rawData.c_str()));
 	else if (isRealChar != -1)
-		checkFloat = static_cast<double>(isRealChar);
+		checkFloat = static_cast<float>(isRealChar);
 	else
 	{
 		std::cout << "impossible" << '\n';
