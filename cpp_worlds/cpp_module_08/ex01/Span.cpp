@@ -36,7 +36,10 @@ Span& Span::operator=(const Span& rhs)
 void    Span::addNumber(int n)
 {
     if (sz == curSize)
+    {
+        std::cout << "The Span is Full." << '\n';
         return ;
+    }
     storage.insert(n);
     curSize++;
 }

@@ -10,12 +10,18 @@ int main(void)
 
     sp.addNumber(6);
     sp.addNumber(3);
-    sp.addNumber(17);
-    sp.addNumber(9);
     sp.addNumber(11);
-    sp2 = sp;
+    sp.addNumber(9);
     std::cout << sp.shortestSpan() << '\n';
+    std::cout << sp.longestSpan() << '\n';
+    std::cout << "==========================================" << '\n';
+    sp.addNumber(12);
+    std::cout << sp.shortestSpan() << '\n';
+    std::cout << sp.longestSpan() << '\n';
+    std::cout << "==========================================" << '\n';
+    sp2 = sp;
     sp2.addNumber(2);
+    std::cout << sp2.shortestSpan() << '\n';
     std::cout << sp2.longestSpan() << '\n';
     std::cout << "==========================================" << '\n';
     std::vector<int> vt;
