@@ -10,15 +10,23 @@ void    iter(T *arr, int size, void (*func)(T&))
 }
 
 template<typename T>
+void    iter(const T *arr, int size, void (*func)(const T&))
+{
+    for (int i=0; i<size; i++)
+        (*func)(arr[i]);
+}
+
+template<typename T>
 void    plus(T& ref)
 {
     ref += 123;
 }
 
-template<typename T>
-void    printModule(T& ref)
+template< typename T >
+void print( T& x )
 {
-    std::cout << ref << '\n';
+  std::cout << x << std::endl;
+  return;
 }
 
 #endif

@@ -7,7 +7,17 @@ template<typename T>
 class Array
 {
 public:
-    Array(size_t sz)
+    Array()
+        :arrayLen(0)
+    {
+        try {
+            arr = new T[0];
+        } catch(std::bad_alloc& e) {
+            std::cout << "exception : " << e.what() << '\n';
+            std::abort();
+        }
+    }
+    Array(unsigned int sz)
         : arrayLen(sz)
     {
         try {
@@ -26,7 +36,7 @@ public:
     {
         try {
             arr = new T[arrayLen];
-            for (size_t idx = 0; idx < arrayLen; idx++)
+            for (unsigned int idx = 0; idx < arrayLen; idx++)
                 arr[idx] = rhs.arr[idx];
         } catch(std::bad_alloc& e) {
             std::cout << "exception : " << e.what() << '\n';
@@ -39,7 +49,7 @@ public:
             delete[] arr;
             arrayLen = rhs.arrayLen;
             arr = new T[arrayLen];
-            for (size_t idx = 0; idx < arrayLen; idx++)
+            for (unsigned int idx = 0; idx < arrayLen; idx++)
                 arr[idx] = rhs.arr[idx];
         } catch(std::bad_alloc& e) {
             std::cout << "exception : " << e.what() << '\n';
@@ -47,7 +57,7 @@ public:
         }
         return (*this);
     }
-    T& operator[](size_t pos) {
+    T& operator[](unsigned int pos) {
         if (pos < 0 || pos >= arrayLen)
         {
             std::string message;
@@ -58,12 +68,12 @@ public:
         }
         return (arr[pos]);
     }
-    size_t size()
+    unsigned int size()
     {
         return (arrayLen);
     }
 private:
-    size_t  arrayLen;
+    unsigned int  arrayLen;
     T       *arr;
 };
 
