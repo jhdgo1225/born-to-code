@@ -1,5 +1,6 @@
 #ifndef BITCOIN_EXCHANGE_HPP
 # define BITCOIN_EXCHANGE_HPP
+# include <iostream>
 
 class BitcoinExchange
 {
@@ -10,6 +11,6 @@ private:
     ~BitcoinExchange();
     BitcoinExchange(const BitcoinExchange& rhs);
     BitcoinExchange& operator=(const BitcoinExchange& rhs);
-}
+};
 
 #endif

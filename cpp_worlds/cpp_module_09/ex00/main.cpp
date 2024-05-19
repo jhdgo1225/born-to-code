@@ -1,5 +1,4 @@
 #include "BitcoinExchange.hpp"
-#include <iostream>
 
 int main(int argc, char **argv)
 {
@@ -8,6 +7,7 @@ int main(int argc, char **argv)
         std::cout << "Usage: ./btc [input your file]" << '\n';
         return (1);
     }
-    BitcoinExchange::exhange(argv[1]);
+    std::string inputDBFile(argv[1]);
+    BitcoinExchange::exchange(inputDBFile);
     return (0);
 }
