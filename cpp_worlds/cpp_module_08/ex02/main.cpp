@@ -20,6 +20,20 @@ int main()
     std::cout << *(it++) << '\n';
     std::cout << *(it--) << '\n';
     std::cout << "=================================\n";
+    std::cout << "Copy Constructor And Copy Assignment Operator\n";
+    MutantStack<int> mstackCopy(mstack);
+    std::cout << mstackCopy.top() << '\n';
+    std::cout << mstackCopy.size() << '\n';
+    mstackCopy.push(90);
+    mstackCopy.push(100);
+    std::cout << mstackCopy.top() << '\n';
+    std::cout << mstackCopy.size() << '\n';
+    MutantStack<int>::iterator it2 = mstackCopy.begin();
+    while (it2 != mstackCopy.end())
+    {
+        std::cout << *it2++ << '\n';
+    }
+    std::cout << "=================================\n";
     std::cout << "Check Iterating with While Statement\n";
     while (it != ite) {
         std::cout << *it << std::endl;

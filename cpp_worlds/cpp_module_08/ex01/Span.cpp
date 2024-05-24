@@ -2,6 +2,16 @@
 #include <iostream>
 #include <limits>
 
+const char *Span::FullError::what()
+{
+    return ("The Span is Full");
+}
+
+const char *Span::EmptyOrOnlyOneError::what()
+{
+    return ("No Elements Or Only One Element");
+}
+
 Span::Span(unsigned int n)
     :sz(n),
      curSize(0)
@@ -36,10 +46,7 @@ Span& Span::operator=(const Span& rhs)
 void    Span::addNumber(int n)
 {
     if (sz == curSize)
-    {
-        std::cout << "The Span is Full." << '\n';
-        return ;
-    }
+        throw FullError();
     storage.insert(n);
     curSize++;
 }
@@ -47,7 +54,7 @@ void    Span::addNumber(int n)
 unsigned int    Span::shortestSpan(void)
 {
     if (curSize <= 1)
-        return (0);
+        throw EmptyOrOnlyOneError();
     std::multiset<int>::iterator it = storage.begin();
     unsigned int    now = *it;
     it++;

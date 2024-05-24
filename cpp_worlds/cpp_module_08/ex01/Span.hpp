@@ -6,6 +6,14 @@
 class Span
 {
 public:
+    class   FullError: public std::exception {
+    public:
+        const char *what();
+    };
+    class   EmptyOrOnlyOneError: public std::exception {
+    public:
+        const char *what();
+    };
 	Span(unsigned int n);
 	~Span();
 	Span(const Span& rhs);
