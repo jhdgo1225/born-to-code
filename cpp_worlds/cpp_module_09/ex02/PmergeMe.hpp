@@ -1,5 +1,7 @@
 #ifndef PMERGE_ME_HPP
 # define PMERGE_ME_HPP
+# include <iostream>
+# include <cstdlib>
 # include <vector>
 # include <list>
 
@@ -10,12 +12,11 @@ public:
     ~PmergeMe();
     PmergeMe(const PmergeMe& rhs);
     PmergeMe& operator=(const PmergeMe& rhs);
-    MergeInsertionSortWithVector(int argc, char **argv);
-    MergeInsertionSortWithList(int argc, char **argv);
+    void mergeInsertionSort();
 private:
     PmergeMe();
-    std::vector<int>    vc;
-    std::list<int>      li;
-}
+    std::vector<std::pair<int, int> > vc;
+    std::list<std::pair<int, int> > li;
+};
 
 #endif

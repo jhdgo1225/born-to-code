@@ -39,5 +39,7 @@ void    checkArguments(int argc, char **argv)
 int main(int argc, char **argv)
 {
     checkArguments(argc, argv);
+    PmergeMe one(argc, argv);
+    one.mergeInsertionSort();
     return (0);
 }
