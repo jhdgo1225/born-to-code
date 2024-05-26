@@ -19,6 +19,15 @@ public:
 	Span(const Span& rhs);
 	Span& operator=(const Span& rhs);
 	void            addNumber(int n);
+    template<typename Container>
+    void    addNumber(typename Container::iterator s, typename Container::iterator e)
+    {
+        unsigned int	tmp = curSize + (e - s);
+		if (tmp > sz)
+			throw FullError();
+		storage.insert(s, e);
+		curSize = tmp;
+    }
     unsigned int    shortestSpan(void);
     unsigned int    longestSpan(void);
 private:
@@ -26,12 +35,5 @@ private:
     unsigned int        curSize;
     std::multiset<int>  storage;
 };
-
-template<typename Container>
-void    addNumber(typename Container::iterator s, typename Container::iterator e, Span& span)
-{
-    while (s != e)
-        span.addNumber(*s++);
-}
 
 #endif

@@ -45,7 +45,7 @@ int main(void)
         std::vector<int> vt;
         for (int i=1; i<=10000; i++)
             vt.push_back(i);
-        addNumber<std::vector<int> >(vt.begin(), vt.end(), sp3);
+        sp3.addNumber<std::vector<int> >(vt.begin(), vt.end());
         std::cout << sp3.shortestSpan() << '\n';
         std::cout << sp3.longestSpan() << '\n';
     } catch(Span::EmptyOrOnlyOneError& e) {
