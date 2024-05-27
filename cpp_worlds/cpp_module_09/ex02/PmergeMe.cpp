@@ -30,6 +30,13 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& rhs)
     return (*this);
 }
 
+void    printElements(std::vector<std::pair<int, int> >& vc)
+{
+    for (std::vector<std::pair<int, int> >::iterator iter = vc.begin(); iter != vc.end(); iter++)
+        std::cout << iter->first << ' ';
+    std::cout << '\n';
+}
+
 void    printElements(std::list<std::pair<int, int> >& vc)
 {
     for (std::list<std::pair<int, int> >::iterator iter = vc.begin(); iter != vc.end(); iter++)
@@ -100,19 +107,12 @@ void insertInVector(std::vector<std::pair<int, int> >& mainChain, std::vector<st
             newMainChain.push_back(mainChain[idx2]);
         for (int idx2 = start; idx2 > end; idx2--)
         {
-            if (newMainChain.back().first <= pendingElements[idx2 - 1].first)
-            {
-                tmp.push_back(pendingElements[idx2 - 1]);
-                continue ;
-            }
             endIter = newMainChain.end();
-            endIter--;
+			if (mainChainSize == pendingElementsSize || idx2 != start)
+            	endIter--;
             InsertionIter = newMainChain.insert(lowerBoundVector(newMainChain, newMainChain.begin(), endIter, pendingElements[idx2 - 1]), pendingElements[idx2 - 1]);
-            if (mainChainSize == pendingElementsSize || idx2 != start)
-            {
-                tmp.push_back(newMainChain.back());
-                newMainChain.pop_back();
-            }
+			tmp.push_back(newMainChain.back());
+			newMainChain.pop_back();
             if (InsertionIter - newMainChain.begin() + 1 == newMainChain.end() - newMainChain.begin())
             {
                 tmp.push_back(newMainChain.back());
@@ -128,6 +128,7 @@ void insertInVector(std::vector<std::pair<int, int> >& mainChain, std::vector<st
     mainChain = newMainChain;
 }
 
+// Not Done
 void    insertInList(std::list<std::pair<int, int> >& mainChain, std::list<std::pair<int, int> >& pendingElements, int listSize)
 {
     std::list<std::pair<int, int> > newMainChain;
@@ -281,7 +282,7 @@ void    mergeInsertionList(std::list<std::pair<int, int> >& li)
 void PmergeMe::mergeInsertionSort()
 {
     std::cout << "Before: ";
-    printElements(li);
+    printElements(vc);
     clock_t startVector = clock();
     mergeInsertionVector(vc);
     clock_t endVector = clock();
@@ -291,7 +292,7 @@ void PmergeMe::mergeInsertionSort()
     clock_t endList = clock();
     double  diffTimeList = endList - startList;
     std::cout << "After: ";
-    printElements(li);
+    printElements(vc);
     std::cout << "Time to process a range of " << vc.size() << " elements with std::vector : " << diffTimeVector / CLOCKS_PER_SEC << " s" << '\n';
     std::cout << "Time to process a range of " << li.size() << " elements with std::list : " << diffTimeList / CLOCKS_PER_SEC << " s" << '\n';
 }
