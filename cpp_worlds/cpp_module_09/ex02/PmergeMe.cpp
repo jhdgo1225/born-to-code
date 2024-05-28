@@ -30,16 +30,12 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& rhs)
     return (*this);
 }
 
-void    printElements(std::vector<std::pair<int, int> >& vc)
+void    printElements(std::vector<std::pair<int, int> >& vc, std::list<std::pair<int, int> >& li)
 {
     for (std::vector<std::pair<int, int> >::iterator iter = vc.begin(); iter != vc.end(); iter++)
         std::cout << iter->first << ' ';
-    std::cout << '\n';
-}
-
-void    printElements(std::list<std::pair<int, int> >& vc)
-{
-    for (std::list<std::pair<int, int> >::iterator iter = vc.begin(); iter != vc.end(); iter++)
+    std::cout << "| ";
+	for (std::list<std::pair<int, int> >::iterator iter = li.begin(); iter != li.end(); iter++)
         std::cout << iter->first << ' ';
     std::cout << '\n';
 }
@@ -63,24 +59,35 @@ std::vector<std::pair<int, int> >::iterator lowerBoundVector(std::vector<std::pa
     return (retIter);
 }
 
-std::list<std::pair<int, int> >::iterator lowerBoundList(std::list<std::pair<int, int> >& li, std::pair<int, int> key) {
-	int listSize = li.size();
+std::list<std::pair<int, int> >::iterator lowerBoundList(std::list<std::pair<int, int> >& li, std::list<std::pair<int, int> >::iterator e, std::pair<int, int> key) {
 	int low = 0;
-	int high = listSize - 1;
-	std::list<std::pair<int, int> >::iterator startIter;
+	int high = 0;
+	for (std::list<std::pair<int, int> >::iterator it = li.begin(); it != e; it++)
+		high++;
+	std::list<std::pair<int, int> >::iterator startIter = li.begin();
+	int startIterIdx = 0;
 	while(low < high) {
 		int mid = (low + high) / 2;
-		startIter = li.begin();
-		for (int idx = 0; idx < mid; idx++)
-			startIter++;
+		if (mid > startIterIdx)
+		{
+			for (int idx = startIterIdx; idx < mid; idx++)
+				startIter++;
+		}
+		else
+		{
+			for (int idx = mid; idx < startIterIdx; idx++)
+				startIter--;
+		}
+		startIterIdx = mid;
 		if (key.first <= startIter->first)
 			high = mid;
 		else
+		{
 			low = mid + 1;
+			startIter++;
+			startIterIdx++;
+		}
 	}
-	startIter = li.begin();
-	for (int idx = 0; idx < low; idx++)
-		startIter++;
 	return (startIter);
 }
 
@@ -108,11 +115,14 @@ void insertInVector(std::vector<std::pair<int, int> >& mainChain, std::vector<st
         for (int idx2 = start; idx2 > end; idx2--)
         {
             endIter = newMainChain.end();
-			if (mainChainSize == pendingElementsSize || idx2 != start)
+			if (mainChainSize == pendingElementsSize || idx2 != pendingElementsSize)
             	endIter--;
             InsertionIter = newMainChain.insert(lowerBoundVector(newMainChain, newMainChain.begin(), endIter, pendingElements[idx2 - 1]), pendingElements[idx2 - 1]);
-			tmp.push_back(newMainChain.back());
-			newMainChain.pop_back();
+			if (mainChainSize == pendingElementsSize || idx2 != pendingElementsSize)
+			{
+				tmp.push_back(newMainChain.back());
+				newMainChain.pop_back();
+			}
             if (InsertionIter - newMainChain.begin() + 1 == newMainChain.end() - newMainChain.begin())
             {
                 tmp.push_back(newMainChain.back());
@@ -128,7 +138,6 @@ void insertInVector(std::vector<std::pair<int, int> >& mainChain, std::vector<st
     mainChain = newMainChain;
 }
 
-// Not Done
 void    insertInList(std::list<std::pair<int, int> >& mainChain, std::list<std::pair<int, int> >& pendingElements, int listSize)
 {
     std::list<std::pair<int, int> > newMainChain;
@@ -163,19 +172,15 @@ void    insertInList(std::list<std::pair<int, int> >& mainChain, std::list<std::
             pendingElementsIter++;
         for (int idx2 = start; idx2 > end; idx2--)
         {
-            if (newMainChain.back().first <= pendingElementsIter->first)
-            {
-                tmp.push_back(*pendingElementsIter--);
-                continue ;
-            }
             endIter = newMainChain.end();
-            endIter--;
-            InsertionIter = newMainChain.insert(lowerBoundList(newMainChain, *pendingElementsIter), *pendingElementsIter);
-            if (mainChainSize == pendingElementsSize || idx2 != start)
-            {
-                tmp.push_back(newMainChain.back());
-                newMainChain.pop_back();
-            }
+			if (mainChainSize == pendingElementsSize || idx2 != pendingElementsSize)
+            	endIter--;
+            InsertionIter = newMainChain.insert(lowerBoundList(newMainChain, endIter, *pendingElementsIter), *pendingElementsIter);
+			if (mainChainSize == pendingElementsSize || idx2 != pendingElementsSize)
+			{
+				tmp.push_back(newMainChain.back());
+				newMainChain.pop_back();
+			}
             if (InsertionIter == --newMainChain.end())
             {
                 tmp.push_back(newMainChain.back());
@@ -219,7 +224,7 @@ void    mergeInsertionVector(std::vector<std::pair<int, int> >& vc)
         updatedMainChain.push_back(std::pair<int, int>(it->first, it - mainChain.begin()));
     mergeInsertionVector(updatedMainChain);
     for (int idx = 0; idx < (vcSize >> 1); idx++)
-    {   
+    {
         int updatedIdx = updatedMainChain[idx].second;
         updatedPendingElements.push_back(pendingElements[updatedIdx]);
         updatedMainChain[idx].second = mainChain[updatedIdx].second;
@@ -282,7 +287,7 @@ void    mergeInsertionList(std::list<std::pair<int, int> >& li)
 void PmergeMe::mergeInsertionSort()
 {
     std::cout << "Before: ";
-    printElements(vc);
+    printElements(vc, li);
     clock_t startVector = clock();
     mergeInsertionVector(vc);
     clock_t endVector = clock();
@@ -292,7 +297,7 @@ void PmergeMe::mergeInsertionSort()
     clock_t endList = clock();
     double  diffTimeList = endList - startList;
     std::cout << "After: ";
-    printElements(vc);
+    printElements(vc, li);
     std::cout << "Time to process a range of " << vc.size() << " elements with std::vector : " << diffTimeVector / CLOCKS_PER_SEC << " s" << '\n';
     std::cout << "Time to process a range of " << li.size() << " elements with std::list : " << diffTimeList / CLOCKS_PER_SEC << " s" << '\n';
 }
