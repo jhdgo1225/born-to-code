@@ -104,6 +104,9 @@ LIBFTA	= libft/libft.a
 
 CC		= cc
 CFLAGS	= -Wall -Werror -Wextra
+CPPFLAGS = -I/opt/homebrew/opt/readline/include
+
+LDFLAGS = -L/opt/homebrew/opt/readline/lib
 
 vpath %.c	$(addprefix $(DIR), /.\
 			$(addprefix /builtin, /.)\
@@ -119,7 +122,7 @@ bonus :
 	@make IS_BONUS=1 all
 
 $(NAME): $(OBJ) $(LIBFTA)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFTA) -o $@ -lreadline
+	@$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(LIBFTA) -o $@ -lreadline
 	@echo $(NAME) DONE ✅ 
 
 $(LIBFTA):
@@ -127,7 +130,7 @@ $(LIBFTA):
 	@echo LIBFT DONE ✅
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
-	@$(CC) $(CFLAGS) -I $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(CPPFLAGS) -I $(INC) -c $< -o $@
 
 $(OBJDIR):
 	@mkdir $(OBJDIR)
